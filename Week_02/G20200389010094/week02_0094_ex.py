@@ -38,55 +38,42 @@ DATA_LIST = [
 ]
 
 
-class Customer(object):
+class Customer():
     ''' Customer '''
     def __init__(self):
-        self.__cnt = 0
-        self.__total = 0.0
+        self.cnt = 0
+        self.total = 0.0
 
     def bill(self):
-        pay_total = self.__total
+        pay_total = self.total
         if pay_total > 200:
             pay_total *= 0.9
         print(f'总共消费{pay_total:.1f}元')
 
     def shopping(self, menu=None):
         assert isinstance(menu, list)
-        self.__total = math.fsum(menu)
-        self.__cnt += len(menu)
+        self.total = math.fsum(menu)
+        self.cnt += len(menu)
 
     def clean(self):
-        self.__cnt = 0
-        self.__total = 0.0
+        self.cnt = 0
+        self.total = 0.0
 
 
-class CustomerVIP(object):
+class CustomerVIP(Customer):
     '''VIP'''
-    def __init__(self):
-        self.__cnt = 0
-        self.__total = 0.0
-
     def bill(self):
         pay_total = 0
-        sum0 = sum1 = self.__total
-        if self.__cnt > 10:
-            sum0 = self.__total * 0.85
-        if self.__total > 200:
-            sum1 = self.__total * 0.8
+        sum0 = sum1 = self.total
+        if self.cnt > 10:
+            sum0 = self.total * 0.85
+        if self.total > 200:
+            sum1 = self.total * 0.8
         if sum0 < sum1:
             pay_total = sum0
         else:
             pay_total = sum1
         print(f'总共消费{pay_total:.1f}元')
-
-    def shopping(self, menu=None):
-        assert isinstance(menu, list)
-        self.__total = math.fsum(menu)
-        self.__cnt += len(menu)
-
-    def clean(self):
-        self.__cnt = 0
-        self.__total = 0.0
 
 
 def customer_aaa():
@@ -96,6 +83,7 @@ def customer_aaa():
         person_a.shopping(i)
         person_a.bill()
         person_a.clean()
+
 
 def customer_bbb():
     '''a VIP customer'''
